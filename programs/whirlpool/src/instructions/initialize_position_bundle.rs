@@ -47,7 +47,9 @@ pub fn handler(ctx: Context<InitializePositionBundle>) -> Result<()> {
 
     position_bundle.initialize(position_bundle_mint.key())?;
 
-    let bump = *ctx.bumps.get("position_bundle").unwrap();
+    // qtrade
+    // let bump = *ctx.bumps.get("position_bundle").unwrap();
+    let bump = 0;
 
     mint_position_bundle_token_and_remove_authority(
         &ctx.accounts.position_bundle,

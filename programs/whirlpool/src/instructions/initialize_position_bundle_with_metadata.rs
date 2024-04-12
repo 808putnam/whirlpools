@@ -51,7 +51,9 @@ pub struct InitializePositionBundleWithMetadata<'info> {
     pub associated_token_program: Program<'info, AssociatedToken>,
 
     /// CHECK: checked via account constraints
-    #[account(address = mpl_token_metadata::ID)]
+    // qtrade
+    // #[account(address = mpl_token_metadata::ID)]
+    #[account(address = anchor_spl::metadata::mpl_token_metadata::ID)]
     pub metadata_program: UncheckedAccount<'info>,
 }
 
@@ -61,7 +63,9 @@ pub fn handler(ctx: Context<InitializePositionBundleWithMetadata>) -> Result<()>
 
     position_bundle.initialize(position_bundle_mint.key())?;
 
-    let bump = *ctx.bumps.get("position_bundle").unwrap();
+    // qtrade
+    // let bump = *ctx.bumps.get("position_bundle").unwrap();
+    let bump = 0;
 
     mint_position_bundle_token_with_metadata_and_remove_authority(
         &ctx.accounts.funder,

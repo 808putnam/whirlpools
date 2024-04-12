@@ -2,7 +2,8 @@
 name = "whirlpool"
 version = "0.2.0"
 description = "Created with Anchor"
-edition = "2018"
+# qtrade
+edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "lib"]
@@ -15,14 +16,20 @@ cpi = ["no-entrypoint"]
 default = []
 
 [dependencies]
-anchor-lang = "0.26"
-anchor-spl = "0.26"
-spl-token = {version = "3.3", features = ["no-entrypoint"]}
-solana-program = "1.14.12"
+# qtrade
+anchor-lang = "0.29.0"
+# qtrade
+anchor-spl = { version = "0.29.0", features = ["metadata"] }
+# qtrade: The solana/spl versions match those specified in anchor above 
+spl-token = {version = "4", features = ["no-entrypoint"]}
+solana-program = "1.16"
 thiserror = "1.0"
 uint = {version = "0.9.1", default-features = false}
-borsh = "0.9.1"
-mpl-token-metadata = { version = "1.7", features = ["no-entrypoint"] }
+# qtrade
+borsh = "0.9.3"
+# qtrade
+bytemuck = { version = "1.4.0", features = ["derive", "min_const_generics"]}
+
 
 [dev-dependencies]
 proptest = "1.0"

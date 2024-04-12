@@ -22,6 +22,9 @@ pub mod util;
 use crate::state::{OpenPositionBumps, OpenPositionWithMetadataBumps, WhirlpoolBumps};
 use instructions::*;
 
+// qtrade
+use crate::state::position;
+
 #[program]
 pub mod whirlpool {
     use super::*;
@@ -169,7 +172,8 @@ pub mod whirlpool {
     ///                        the tick-spacing in this pool.
     pub fn open_position(
         ctx: Context<OpenPosition>,
-        bumps: OpenPositionBumps,
+        // qtrade
+        bumps: position::OpenPositionBumps,
         tick_lower_index: i32,
         tick_upper_index: i32,
     ) -> Result<()> {
@@ -194,7 +198,8 @@ pub mod whirlpool {
     ///                        the tick-spacing in this pool.
     pub fn open_position_with_metadata(
         ctx: Context<OpenPositionWithMetadata>,
-        bumps: OpenPositionWithMetadataBumps,
+        // qtrade
+        bumps: position::OpenPositionWithMetadataBumps,
         tick_lower_index: i32,
         tick_upper_index: i32,
     ) -> Result<()> {

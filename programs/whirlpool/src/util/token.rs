@@ -1,13 +1,20 @@
 use crate::state::{PositionBundle, Whirlpool};
 use anchor_lang::prelude::*;
 use anchor_spl::token::{self, Mint, Token, TokenAccount, Transfer};
-use mpl_token_metadata::instruction::create_metadata_accounts_v3;
+// qtrade
+// use mpl_token_metadata::instruction::create_metadata_accounts_v3;
+// use anchor_spl::metadata::mpl_token_metadata::instruction::create_metadata_accounts_v3;
 use solana_program::program::invoke_signed;
 use spl_token::instruction::{burn_checked, close_account, mint_to, set_authority, AuthorityType};
 
+/* qtrade: remove warning
 use crate::constants::nft::{
     WPB_METADATA_NAME_PREFIX, WPB_METADATA_SYMBOL, WPB_METADATA_URI, WP_METADATA_NAME,
     WP_METADATA_SYMBOL, WP_METADATA_URI,
+};
+*/
+use crate::constants::nft::{
+    WPB_METADATA_NAME_PREFIX
 };
 
 pub fn transfer_from_owner_to_vault<'info>(
@@ -133,6 +140,7 @@ pub fn mint_position_token_with_metadata_and_remove_authority<'info>(
     )?;
 
     let metadata_mint_auth_account = whirlpool;
+    /* qtrade
     invoke_signed(
         &create_metadata_accounts_v3(
             metadata_program.key(),
@@ -164,6 +172,7 @@ pub fn mint_position_token_with_metadata_and_remove_authority<'info>(
         ],
         &[&metadata_mint_auth_account.seeds()],
     )?;
+    */
 
     remove_position_token_mint_authority(whirlpool, position_mint, token_program)
 }
@@ -271,6 +280,7 @@ pub fn mint_position_bundle_token_with_metadata_and_remove_authority<'info>(
     nft_name += "...";
     nft_name += &mint_address[mint_address.len() - 4..];
 
+    /* qtrade
     invoke_signed(
         &create_metadata_accounts_v3(
             metadata_program.key(),
@@ -302,7 +312,8 @@ pub fn mint_position_bundle_token_with_metadata_and_remove_authority<'info>(
         ],
         &[position_bundle_seeds],
     )?;
-
+    */
+    
     remove_position_bundle_token_mint_authority(
         position_bundle,
         position_bundle_mint,

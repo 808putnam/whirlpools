@@ -6,8 +6,10 @@ use crate::{state::*, util::mint_position_token_with_metadata_and_remove_authori
 
 use crate::constants::nft::whirlpool_nft_update_auth::ID as WP_NFT_UPDATE_AUTH;
 
+use crate::state::position;
+
 #[derive(Accounts)]
-#[instruction(bumps: OpenPositionWithMetadataBumps)]
+#[instruction(bumps: position::OpenPositionWithMetadataBumps)]
 pub struct OpenPositionWithMetadata<'info> {
     #[account(mut)]
     pub funder: Signer<'info>,
@@ -51,7 +53,8 @@ pub struct OpenPositionWithMetadata<'info> {
     pub associated_token_program: Program<'info, AssociatedToken>,
 
     /// CHECK: checked via account constraints
-    #[account(address = mpl_token_metadata::ID)]
+    // #[account(address = mpl_token_metadata::ID)]
+    #[account(address = anchor_spl::metadata::mpl_token_metadata::ID)]
     pub metadata_program: UncheckedAccount<'info>,
 
     /// CHECK: checked via account constraints
@@ -64,7 +67,7 @@ pub struct OpenPositionWithMetadata<'info> {
 */
 pub fn handler(
     ctx: Context<OpenPositionWithMetadata>,
-    _bumps: OpenPositionWithMetadataBumps,
+    _bumps: position::OpenPositionWithMetadataBumps,
     tick_lower_index: i32,
     tick_upper_index: i32,
 ) -> Result<()> {

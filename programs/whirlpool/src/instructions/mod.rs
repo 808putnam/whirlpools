@@ -35,7 +35,8 @@ pub use close_position::*;
 pub use collect_fees::*;
 pub use collect_protocol_fees::*;
 pub use collect_reward::*;
-pub use decrease_liquidity::*;
+// qtrade: remove warning
+// pub use decrease_liquidity::*;
 pub use delete_position_bundle::*;
 pub use increase_liquidity::*;
 pub use initialize_config::*;

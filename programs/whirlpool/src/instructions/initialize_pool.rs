@@ -2,8 +2,13 @@ use crate::state::*;
 use anchor_lang::prelude::*;
 use anchor_spl::token::{self, Mint, Token, TokenAccount};
 
+// qtrade
+use crate::state::position;
+use crate::state::whirlpool;
+
 #[derive(Accounts)]
-#[instruction(bumps: WhirlpoolBumps, tick_spacing: u16)]
+// qtrade
+#[instruction(bumps: whirlpool::WhirlpoolBumps, tick_spacing: u16)]
 pub struct InitializePool<'info> {
     pub whirlpools_config: Box<Account<'info, WhirlpoolsConfig>>,
 
@@ -49,7 +54,8 @@ pub struct InitializePool<'info> {
 
 pub fn handler(
     ctx: Context<InitializePool>,
-    _bumps: WhirlpoolBumps,
+    // qtrade
+    _bumps: whirlpool::WhirlpoolBumps,
     tick_spacing: u16,
     initial_sqrt_price: u128,
 ) -> Result<()> {
@@ -62,7 +68,9 @@ pub fn handler(
     let default_fee_rate = ctx.accounts.fee_tier.default_fee_rate;
 
     // ignore the bump passed and use one Anchor derived
-    let bump = *ctx.bumps.get("whirlpool").unwrap();
+    // qtrade
+    // let bump = *ctx.bumps.get("whirlpool").unwrap();
+    let bump = _bumps.whirlpool_bump;
 
     Ok(whirlpool.initialize(
         whirlpools_config,
